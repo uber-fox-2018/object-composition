@@ -69,19 +69,29 @@ for(let i = 0 ; i < options.length ; i++){
 
 
 let batch_of_cookies = CookieFactory.create(options)
-console.log(batch_of_cookies) // release 0
+// console.log(batch_of_cookies) // release 0
 
 
 class Ingredient {
     static create(options){
         for(let i = 0 ; i < options.length ; i++){
             // console.log(batch_of_cookies[i])
+            
             for(let j = 1 ; j < options[i].length ; j++){
-                batch_of_cookies[i].ingredients = options[i][j]
+                var arr = []
+                
+                for(let k = 0 ; k < options[i][j].length ;k++){
+                    options[i][j][k] = options[i][j][k].split(': ')
+                    // batch_of_cookies[i].ingredients += options[i][j][k][1]
+                    arr.push(options[i][j][k][1])
+                    // console.log(options[i][j][k])
+                }
+                batch_of_cookies[i].ingredient = arr
+                
                 // console.log(options[i][j])
             }
         }
     }
 }
 let ingredients = Ingredient.create(options)
-// console.log(batch_of_cookies) // release 1
+console.log(batch_of_cookies) // release 1
