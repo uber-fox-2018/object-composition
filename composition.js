@@ -2,10 +2,10 @@ const fs = require(`fs`)
 var option = fs.readFileSync(`./cookies.txt`,`utf8`)
 
 class Cookie {
-    constructor(name,ingredients) {
+    constructor(name,arringredients) {
         this.name = name
         this.status = `mentah`
-        this.ingredients = ingredients
+        this.ingredients = Ingredients.breaker(arringredients)
     }
     bake() {
         this.status = `selesai dimasak`
@@ -61,10 +61,28 @@ class CookieFactory {
                 let chochip = new ChocolateChip(arrRecipeName[i],Ingredients.breaker(arrIngridients[i]))
                 res.push(chochip)
             } else {
-                let other = new OtherCookie(arrRecipeName[i],Ingredients.breaker(arrIngridients[i]))
+                let other = new OtherCookie(arrRecipeName[i],arrIngridients[i])
                 res.push(other)
             }
         }
+        return res
+    }
+    static cookieRecommendation(day, batchOfCookie) {
+        let res = []
+        
+        for (let i = 0; i < batchOfCookie.length; i++) {
+            let sugar = false
+            for (let j = 0; j < batchOfCookie[i].ingredients.length; j++) {
+                if (batchOfCookie[i].ingredients[j].name === `sugar`) {
+                    
+                    sugar = true
+                }
+            }
+            if (sugar === false) {
+                res.push(batchOfCookie[i])
+            }
+        }
+
         return res
     }
 }
@@ -92,3 +110,10 @@ class Ingredients {
 let batchOfCookie = CookieFactory.create(option)
 batchOfCookie
 console.log(batchOfCookie)
+
+let sugarFreeFoods = CookieFactory.cookieRecommendation("tuesday", batchOfCookie);
+console.log("sugar free cakes are :");
+
+for(let i = 0; i < sugarFreeFoods.length; i++){
+  console.log(sugarFreeFoods[i].name);
+}
