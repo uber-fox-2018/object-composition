@@ -1,3 +1,5 @@
+const Ingredient = require('./ingredient');
+
 class Cookie {
   constructor (name){
     this._name = name;
@@ -6,11 +8,19 @@ class Cookie {
   }
 
   set status (newStatus) {
-    return this._status = newStatus
+    return this._status = newStatus;
   }
 
   bake (){
-    this.status = 'selesai dimasak'
+    return this.status = 'selesai dimasak'
+  }
+
+  get ingredients(){
+    return this._ingredients;
+  }
+
+  set ingredients(obj){
+    return this._ingredients.push(new Ingredient (obj));
   }
 }
 
