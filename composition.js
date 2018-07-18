@@ -31,7 +31,7 @@ class Cookie{
     constructor(){
         this.name = ''
         this.status = 'mentah'
-        this.ingredients = []
+        // this.ingredients = []
     }
     bake(){
         this.status = 'selesai dimasak'
